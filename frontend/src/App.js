@@ -4,6 +4,7 @@ import './App.css';
 import Home from "./Components/Home/Home.js";
 import AddUser from "./Components/AddUser/AddUser.js";
 import Users from "./Components/Userdetails/Users.js";
+import UpdateUser from "./Components/UpdateUser/UpdateUser.js";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path="/mainhome" element={<Home/>}/>
         <Route path="/adduser" element={<AddUser/>}/>
         <Route path="/userdetals" element={<Users/>}/>
+        <Route path="/userdetals/:id" element={<UpdateUser/>}/>
+
         </Routes>
       </React.Fragment>
 
