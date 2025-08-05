@@ -1,0 +1,38 @@
+.home-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+  background-color: #444;
+}
+
+.home-li {
+  padding: 15px 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.home-a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.home-li:hover {
+  background-color: #666;
+}
+
+.home-li:active,
+.home-li:focus {
+  background-color: #666;
+  outline: none;
+  color: #fff;
+}
+
+.home-a:active,
+.home-a:focus {
+  color: #fff;
+  text-decoration: none;
+}
