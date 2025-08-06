@@ -38,7 +38,7 @@ function UpdateUser() {
     const handleSubmit = (e) => {
         e.preventDefault(); 
         console.log(inputs);
-        sendRequest().then(() => history('/userdetals')); 
+        sendRequest().then(() => history('/userdetails')); 
     };
 
   return (

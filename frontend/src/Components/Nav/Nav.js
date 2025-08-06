@@ -17,7 +17,7 @@ function Nav() {
           </Link>
         </li>
         <li className="home-li">
-             <Link to="/userdetals" className ="active home-a">
+             <Link to="/userdetails" className ="active home-a">
           <h1>user details</h1>
           </Link>
         </li>
