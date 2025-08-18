@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import "./Admin.css";
 
 
-
-function Home() {
+function Admin() {
   return (
     <div className="home-container">
 
@@ -13,7 +13,7 @@ function Home() {
 
         <div className="card-grid">
           <div className="card">
-          <Link to="/userdetails" className="active home-a">
+          <Link to="/userdetails" className="activehome">
             <h2>User Management</h2>
             <p>Manage system users, roles & permissions.</p>
           </Link>
@@ -37,4 +37,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Admin;
