@@ -9,8 +9,8 @@ function Nav() {
     <div>
       <ul className="home-ul">
         <li className="home-li">
-          <Link to="/mainhome" className="active home-a">
-            <h1>Home</h1>
+          <Link to="/mainAdminhome" className="active home-a">
+            <h1>Admin Home</h1>
           </Link>
         </li>
         <li className="home-li">
