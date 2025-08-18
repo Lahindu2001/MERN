@@ -74,7 +74,7 @@ function Users() {
   return (
     <div className="users-container">
       <Nav />
-      <h1>User Details Display Page</h1>
+      <h2>User Details Display Page</h2>
       <div className="search-bar">
         <input
           type="text"

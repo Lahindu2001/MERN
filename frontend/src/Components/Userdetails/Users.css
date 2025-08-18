@@ -1,19 +1,6 @@
-/* Users.css */
-.users-container {
-  width: 100vw; /* Full viewport width */
-  min-height: 100vh; /* Full viewport height */
-  margin: 0; /* Remove margins for full-screen */
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 0; /* Remove border-radius for full-screen */
-  box-shadow: none; /* Remove shadow for full-screen */
-  font-family: Arial, sans-serif;
-  box-sizing: border-box;
-}
 
-.users-container h1 {
+.users-container h2 {
   text-align: center;
-  margin-bottom: 15px;
   font-size: 20px;
 }
 

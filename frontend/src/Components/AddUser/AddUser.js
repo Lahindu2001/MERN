@@ -64,53 +64,61 @@ function AddUser() {
   };
 
   return (
-    <div className="add-user-container">
-      <Nav />
-      <h1>Add User</h1>
-      <form onSubmit={handleSubmit} className="add-user-form">
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          onChange={handleChange}
-          value={inputs.name}
-          required
-          pattern="[A-Za-z\s]+"
-          title="Only letters and spaces allowed"
-        />
-        <label htmlFor="gmail">Email</label>
-        <input
-          type="email"
-          id="gmail"
-          name="gmail"
-          onChange={handleChange}
-          value={inputs.gmail}
-          required
-        />
-        <label htmlFor="age">Age</label>
-        <input
-          type="number"
-          id="age"
-          name="age"
-          onChange={handleChange}
-          value={inputs.age}
-          required
-          min="0"
-          max="120"
-        />
-        <label htmlFor="address">Address</label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          onChange={handleChange}
-          value={inputs.address}
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <>
+      {/* ✅ Nav OUTSIDE the container */}
+      <Nav />  
+
+      <div className="add-user-container">
+        <h1>Add User</h1>
+        <form onSubmit={handleSubmit} className="add-user-form">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            onChange={handleChange}
+            value={inputs.name}
+            required
+            pattern="[A-Za-z\s]+"
+            title="Only letters and spaces allowed"
+          />
+
+          <label htmlFor="gmail">Email</label>
+          <input
+            type="email"
+            id="gmail"
+            name="gmail"
+            onChange={handleChange}
+            value={inputs.gmail}
+            required
+          />
+
+          <label htmlFor="age">Age</label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            onChange={handleChange}
+            value={inputs.age}
+            required
+            min="0"
+            max="120"
+          />
+
+          <label htmlFor="address">Address</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            onChange={handleChange}
+            value={inputs.address}
+            required
+          />
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </>
   );
 }
 
