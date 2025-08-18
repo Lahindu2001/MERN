@@ -3,6 +3,7 @@ import Nav from '../Nav/Nav';
 import axios from 'axios';
 import User from '../User/User';
 import jsPDF from 'jspdf';
+import './Users.css'; // Import the CSS file
 
 const URL = 'http://localhost:5000/users';
 
@@ -71,19 +72,18 @@ function Users() {
   ) : [];
 
   return (
-    <div>
+    <div className="users-container">
       <Nav />
       <h1>User Details Display Page</h1>
-      <div>
+      <div className="search-bar">
         <input
           type="text"
           placeholder="Search by Name, Email, or ID..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ padding: '5px', marginBottom: '10px', width: '200px' }}
         />
       </div>
-      <div style={{ margin: '10px 0', padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}>
+      <div className="download-options">
         <h3>Download Options</h3>
         <label>
           <input
@@ -113,18 +113,19 @@ function Users() {
             onChange={() => setSelectedFields(prev => ({ ...prev, address: !prev.address }))}
           /> Address
         </label>
-        <br />
-        <label>Filter by Age Range: </label>
-        <select value={ageFilter} onChange={(e) => setAgeFilter(e.target.value)} style={{ marginRight: '10px' }}>
-          <option value="all">All</option>
-          <option value="0-20">0-20</option>
-          <option value="21-40">21-40</option>
-          <option value="41-60">41-60</option>
-          <option value="61+">61+</option>
-        </select>
-        <button onClick={handleDownload} style={{ padding: '5px 10px' }}>Download Report</button>
+        <div>
+          <label>Filter by Age Range: </label>
+          <select value={ageFilter} onChange={(e) => setAgeFilter(e.target.value)}>
+            <option value="all">All</option>
+            <option value="0-20">0-20</option>
+            <option value="21-40">21-40</option>
+            <option value="41-60">41-60</option>
+            <option value="61+">61+</option>
+          </select>
+          <button onClick={handleDownload}>Download Report</button>
+        </div>
       </div>
-      <div>
+      <div className="users-list">
         {filteredUsers.map((user, i) => (
           <div key={i}>
             <User user={user} />

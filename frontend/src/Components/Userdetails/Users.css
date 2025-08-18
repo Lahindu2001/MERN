@@ -1,0 +1,168 @@
+/* Users.css */
+.users-container {
+  width: 100vw; /* Full viewport width */
+  min-height: 100vh; /* Full viewport height */
+  margin: 0; /* Remove margins for full-screen */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 0; /* Remove border-radius for full-screen */
+  box-shadow: none; /* Remove shadow for full-screen */
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.users-container h1 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.download-options {
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.download-options h3 {
+  margin: 0 0 10px;
+  color: #555;
+  font-size: 18px;
+}
+
+.download-options label {
+  margin-right: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+.download-options input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.download-options select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin: 0 10px;
+}
+
+.download-options button {
+  padding: 10px 20px;
+  background-color: #007bff; /* Blue for Download Report */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.download-options button:hover {
+  background-color: #0056b3;
+}
+
+.download-options button:active {
+  background-color: #004085;
+}
+
+/* Styles for Update and Delete buttons (to be used in User component) */
+.update-button {
+  padding: 10px 20px;
+  background-color: #28a745; /* Green for Update */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+}
+
+.update-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+.update-button:active {
+  background-color: #1e7e34; /* Even darker green when active */
+}
+
+.delete-button {
+  padding: 10px 20px;
+  background-color: #dc3545; /* Red for Delete */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.delete-button:active {
+  background-color: #bd2130; /* Even darker red when active */
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .users-container {
+    padding: 15px;
+  }
+
+  .search-bar input {
+    font-size: 14px;
+  }
+
+  .download-options {
+    padding: 10px;
+  }
+
+  .download-options h3 {
+    font-size: 16px;
+  }
+
+  .download-options label,
+  .download-options select,
+  .download-options button {
+    font-size: 12px;
+  }
+
+  .update-button,
+  .delete-button {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+}

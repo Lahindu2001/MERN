@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
+import "./UpdateUser.css";
 
 function UpdateUser() {
     const [inputs, setInputs] = useState({
@@ -65,7 +66,7 @@ function UpdateUser() {
     };
 
   return (
-    <div>
+    <div className="update-user-container">
       <h1>update user</h1>
       <form onSubmit={handleSubmit}>
                 <label>name</label>
