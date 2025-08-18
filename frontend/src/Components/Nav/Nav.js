@@ -26,6 +26,25 @@ function Nav() {
             <h1>User Management</h1>
           </NavLink>
         </li>
+        <li className="home-li">
+          {/* NavLink for User Management, applies active styling when on /userdetails */}
+          <NavLink
+            to="/InventoryMange"
+            className="home-a"
+            activeClassName="active" // Apply 'active' class when the link is active
+          >
+            <h1>Inventory Management</h1>
+          </NavLink>
+        </li>
+
+
+        {/* {<li className="home-li">
+          <Link to="/adduser" className="active home-a">
+            <h1>Add User</h1>
+          </Link>
+        </li> } */}
+
+
       </ul>
     </div>
   );
