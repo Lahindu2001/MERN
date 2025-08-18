@@ -4,7 +4,13 @@ import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
 
 function UpdateUser() {
-    const [inputs, setInputs] = useState({});
+    // Initialize with empty strings to keep inputs controlled from the start
+    const [inputs, setInputs] = useState({
+        name: "",
+        gmail: "",
+        age: "",
+        address: "",
+    });
     const history = useNavigate();
     const { id } = useParams();
 

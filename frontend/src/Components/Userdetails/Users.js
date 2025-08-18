@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from '../Nav/Nav';
 import axios from 'axios';
 import User from '../User/User';
-import { useReactToPrint } from 'react-to-print';
+import jsPDF from 'jspdf';  // Import jsPDF for direct PDF generation
 
 const URL = 'http://localhost:5000/users';
 
@@ -12,23 +12,48 @@ const fetchHandler = async () => {
 
 function Users() {
   const [users, setUsers] = useState();
-  const componentRef = useRef();
 
   useEffect(() => {
     fetchHandler().then((data) => setUsers(data.users));
   }, []);
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    documentTitle: 'Users Report',
-    onAfterPrint: () => alert('User Report Successfully Downloaded!'),
-  });
+  // Function to generate and download PDF directly
+  const handleDownload = () => {
+    if (!users || users.length === 0) {
+      alert('No users to download!');
+      return;
+    }
+
+    const doc = new jsPDF();
+    let y = 10;  // Starting Y position for text
+
+    doc.text('Users Report', 10, y);
+    y += 10;
+
+    users.forEach((user, index) => {
+      doc.text(`User ${index + 1}:`, 10, y);
+      y += 10;
+      doc.text(`ID: ${user._id}`, 10, y);
+      y += 10;
+      doc.text(`Name: ${user.name}`, 10, y);
+      y += 10;
+      doc.text(`Gmail: ${user.gmail}`, 10, y);
+      y += 10;
+      doc.text(`Age: ${user.age}`, 10, y);
+      y += 10;
+      doc.text(`Address: ${user.address}`, 10, y);
+      y += 20;  // Space between users
+    });
+
+    doc.save('users_report.pdf');  // Direct download
+    alert('User Report Successfully Downloaded!');
+  };
 
   return (
     <div>
       <Nav />
       <h1>User Details Display Page</h1>
-      <div ref={componentRef}>
+      <div>
         {users &&
           users.map((user, i) => (
             <div key={i}>
@@ -36,7 +61,7 @@ function Users() {
             </div>
           ))}
       </div>
-      <button onClick={handlePrint}>Download Report</button>
+      <button onClick={handleDownload}>Download Report</button>
     </div>
   );
 }
