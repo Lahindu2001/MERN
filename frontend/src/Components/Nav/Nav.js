@@ -23,6 +23,7 @@ function Nav() {
             <h1>User Management</h1>
           </NavLink>
         </li>
+
         <li className="home-li">
           <NavLink
             to="/InventoryMange"
@@ -32,7 +33,9 @@ function Nav() {
             <h1>Inventory Management</h1>
           </NavLink>
         </li>
-        <li className="home-li">
+
+        
+        {/* <li className="home-li">
           <NavLink
             to="/adduser"
             className="home-a"
@@ -40,7 +43,7 @@ function Nav() {
           >
             <h1>Add User</h1>
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

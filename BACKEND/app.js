@@ -1,22 +1,21 @@
-//pasword 5ujIqBeOwJYjq1hM
-
 const express = require("express");
 const mongoose = require("mongoose");
-const router = require("./Routes/UserRoutes");
+const userRouter = require("./Routes/UserRoutes");
+const inventoryRouter = require("./Routes/InventoryRoutes");
 
 const app = express();
 const cors = require("cors");
 
-//midlware
+// Middleware
 app.use(express.json());
 app.use(cors());
-app.use("/users",router);
-
+app.use("/users", userRouter);
+app.use("/inventory", inventoryRouter);
 
 
 mongoose.connect("mongodb+srv://admin:5ujIqBeOwJYjq1hM@cluster1.lmzaxue.mongodb.net/")
-.then(() => console.log("connected to MongoDB"))
-.then(() =>  {
+  .then(() => console.log("Connected to MongoDB"))
+  .then(() => {
     app.listen(5000);
-})
-.catch((err) => console.log((err)));
+  })
+  .catch((err) => console.log(err));

@@ -20,8 +20,10 @@ function Admin() {
             
           </div>
           <div className="card">
+          <Link to="/InventoryMange" className="activehome">
             <h2>Inventory Management</h2>
             <p>Track and update solar panels, wires & safety products.</p>
+            </Link>
           </div>
           <div className="card">
             <h2>Package Management</h2>
