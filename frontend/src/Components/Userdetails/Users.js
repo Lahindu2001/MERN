@@ -12,6 +12,7 @@ const fetchHandler = async () => {
 
 function Users() {
   const [users, setUsers] = useState();
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedFields, setSelectedFields] = useState({
     name: true,
     gmail: true,
@@ -63,20 +64,27 @@ function Users() {
     alert('User Report Successfully Downloaded!');
   };
 
+  const filteredUsers = users ? users.filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.gmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user._id.toLowerCase().includes(searchTerm.toLowerCase())
+  ) : [];
+
   return (
     <div>
       <Nav />
       <h1>User Details Display Page</h1>
       <div>
-        {users &&
-          users.map((user, i) => (
-            <div key={i}>
-              <User user={user} />
-            </div>
-          ))}
+        <input
+          type="text"
+          placeholder="Search by Name, Email, or ID..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ padding: '5px', marginBottom: '10px', width: '200px' }}
+        />
       </div>
-      <div>
-        <h3>Customize Download</h3>
+      <div style={{ margin: '10px 0', padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}>
+        <h3>Download Options</h3>
         <label>
           <input
             type="checkbox"
@@ -107,15 +115,21 @@ function Users() {
         </label>
         <br />
         <label>Filter by Age Range: </label>
-        <select value={ageFilter} onChange={(e) => setAgeFilter(e.target.value)}>
+        <select value={ageFilter} onChange={(e) => setAgeFilter(e.target.value)} style={{ marginRight: '10px' }}>
           <option value="all">All</option>
           <option value="0-20">0-20</option>
           <option value="21-40">21-40</option>
           <option value="41-60">41-60</option>
           <option value="61+">61+</option>
         </select>
-        <br />
-        <button onClick={handleDownload}>Download Report</button>
+        <button onClick={handleDownload} style={{ padding: '5px 10px' }}>Download Report</button>
+      </div>
+      <div>
+        {filteredUsers.map((user, i) => (
+          <div key={i}>
+            <User user={user} />
+          </div>
+        ))}
       </div>
     </div>
   );
