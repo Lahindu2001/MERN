@@ -77,7 +77,7 @@ function UpdateUser() {
                 <input type="email" name="gmail" onChange={handleChange} value={inputs.gmail} required /><br /><br /> 
                 <label>age</label>
                 <br />
-                <input type="number" name="age" onChange={handleChange} value={inputs.age} required min="0" max="120" /><br /><br />
+                <input type="number" name="age" onChange={handleChange} value={inputs.age} required min="1" max="120" /><br /><br />
                 <label>address</label>
                 <br />
                 <input type="text" name="address" onChange={handleChange} value={inputs.address} required /><br /><br />

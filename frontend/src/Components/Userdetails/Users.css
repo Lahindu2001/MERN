@@ -1,7 +1,52 @@
+/* src/Components/Users/Users.css */
 
-.users-container h2 {
+/* Styling for the main section */
+.users-section {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Styling for the container holding the title and user count */
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Reduced gap for a tighter, standard look */
+  margin: 15px 0; /* Standard margin for spacing */
+  padding: 10px; /* Subtle padding for balance */
+  background-color: #ffffff; /* White background for clean appearance */
+  border-bottom: 1px solid #e0e0e0; /* Lighter border for a standard, subtle separation */
+  border-radius: 4px; /* Slight rounding for modern look */
+}
+
+/* Styling for the Title class to maintain a "lite" yet standard look */
+.users-section .Title {
+  font-size: 22px; /* Slightly smaller for a balanced, standard title */
+  color: #444; /* Slightly darker gray for better readability */
+  font-weight: 400; /* Light weight for "lite" aesthetic */
+  letter-spacing: 0.5px; /* Subtle letter spacing for elegance */
+  text-transform: uppercase; /* Uppercase for a professional, standard look */
+  margin: 0; /* Remove default margin to align with user count */
+  padding: 0; /* Remove padding to fit within container */
+}
+
+/* Styling for the user count display */
+.user-count {
+  font-size: 16px; /* Standard size, smaller than title for hierarchy */
+  color: #555; /* Matches title color for consistency */
+  font-weight: 400; /* Light weight to match title's "lite" aesthetic */
+  background-color: #f1f3f5; /* Very light gray for subtle contrast */
+  padding: 4px 8px; /* Compact padding for inline appearance */
+  border-radius: 3px; /* Slight rounding for a standard, clean look */
+  border: 1px solid #e0e0e0; /* Light border to match title-container */
+}
+
+/* Original h2 styling retained for other h2 elements, if any */
+.users-section h2 {
   text-align: center;
   font-size: 20px;
+  color: #333;
 }
 
 .search-bar {
@@ -77,7 +122,7 @@
   background-color: #004085;
 }
 
-/* Styles for Update and Delete buttons (to be used in User component) */
+/* Styles for Update and Delete buttons (used in User component) */
 .update-button {
   padding: 10px 20px;
   background-color: #28a745; /* Green for Update */
@@ -123,10 +168,113 @@
   gap: 15px;
 }
 
+/* Styles for Add User form */
+.add-user-container {
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.add-user-container h3 {
+  margin: 0 0 10px;
+  color: #555;
+  font-size: 18px;
+  text-align: center;
+}
+
+.add-user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.add-user-form label {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+.add-user-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.add-user-form input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.add-user-form button {
+  padding: 10px;
+  background-color: #007bff; /* Blue to match download button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-user-form button:hover {
+  background-color: #0056b3;
+}
+
+.add-user-form button:active {
+  background-color: #004085;
+}
+
+.add-user-toggle {
+  padding: 10px 20px;
+  background-color: #007bff; /* Blue to match other buttons */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-user-toggle:hover {
+  background-color: #0056b3;
+}
+
+.add-user-toggle:active {
+  background-color: #004085;
+}
+
 /* Responsive design */
 @media (max-width: 600px) {
-  .users-container {
+  .users-section {
     padding: 15px;
+  }
+
+  .title-container {
+    flex-direction: column; /* Stack title and user count vertically on small screens */
+    gap: 8px; /* Reduced gap for mobile */
+    padding: 8px; /* Slightly smaller padding */
+  }
+
+  .users-section .Title {
+    font-size: 18px; /* Smaller for mobile */
+  }
+
+  .user-count {
+    font-size: 14px; /* Smaller font for mobile */
+    padding: 3px 6px; /* Slightly smaller padding */
   }
 
   .search-bar input {
@@ -144,6 +292,29 @@
   .download-options label,
   .download-options select,
   .download-options button {
+    font-size: 12px;
+  }
+
+  .add-user-container {
+    padding: 10px;
+  }
+
+  .add-user-container h3 {
+    font-size: 16px;
+  }
+
+  .add-user-form {
+    padding: 10px;
+  }
+
+  .add-user-form label,
+  .add-user-form input,
+  .add-user-form button {
+    font-size: 12px;
+  }
+
+  .add-user-toggle {
+    padding: 8px 15px;
     font-size: 12px;
   }
 
