@@ -1,7 +1,5 @@
-// src/Components/Nav/Nav.js
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'; // Use NavLink for active link styling
 import './Nav.css';
 
 function Nav() {
@@ -9,19 +7,24 @@ function Nav() {
     <div>
       <ul className="home-ul">
         <li className="home-li">
-          <Link to="/mainAdminhome" className="active home-a">
+          {/* NavLink for Admin Home, no active styling applied */}
+          <NavLink
+            to="/mainAdminhome"
+            className="home-a"
+            // No activeClassName or isActive to prevent active styling
+          >
             <h1>Admin Home</h1>
-          </Link>
+          </NavLink>
         </li>
         <li className="home-li">
-          <Link to="/adduser" className="active home-a">
-            <h1>Add User</h1>
-          </Link>
-        </li>
-        <li className="home-li">
-          <Link to="/userdetails" className="active home-a">
-            <h1>User Details</h1>
-          </Link>
+          {/* NavLink for User Management, applies active styling when on /userdetails */}
+          <NavLink
+            to="/userdetails"
+            className="home-a"
+            activeClassName="active" // Apply 'active' class when the link is active
+          >
+            <h1>User Management</h1>
+          </NavLink>
         </li>
       </ul>
     </div>
