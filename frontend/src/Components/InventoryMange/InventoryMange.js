@@ -98,8 +98,12 @@ function InventoryManage() {
 
   // ------------------- EDIT ITEM -------------------
   const startEdit = item => {
+    const filteredItem = { ...defaultInputs };
+    Object.keys(defaultInputs).forEach(key => {
+      filteredItem[key] = item[key] !== undefined ? item[key] : defaultInputs[key];
+    });
     setEditingItemId(item._id);
-    setEditInputs({ ...item });
+    setEditInputs(filteredItem);
   };
 
   const handleUpdateItem = async e => {
@@ -186,98 +190,44 @@ function InventoryManage() {
         <h2 className="Title">Inventory Management</h2>
       </div>
 
-      <button className="add-user-toggle" onClick={() => setShowAddForm(!showAddForm)}>
+      <button className="add-item-toggle" onClick={() => setShowAddForm(!showAddForm)}>
         {showAddForm ? 'Hide Add Item Form' : 'Show Add Item Form'}
       </button>
 
       {showAddForm && (
-        <div className="add-user-container">
+        <div className="add-item-container">
           <h3>Add New Item</h3>
-          <form className="add-user-form" onSubmit={handleAddItem}>
-            {/* ------------------- INPUTS ------------------- */}
-            <div className="form-group">
-              <label>Product Name</label>
-              <input type="text" name="productName" value={inputs.productName} onChange={handleChange} required />
-            </div>
-
-            <div className="form-group">
-              <label>Category</label>
-              <select name="category" value={inputs.category} onChange={handleChange} required>
-                <option value="">Select Category</option>
-                {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Description</label>
-              <input type="text" name="description" value={inputs.description} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Stock Quantity</label>
-              <input type="number" name="stockQuantity" value={inputs.stockQuantity} onChange={handleChange} required />
-            </div>
-
-            <div className="form-group">
-              <label>Reorder Level</label>
-              <input type="number" name="reorderLevel" value={inputs.reorderLevel} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Reorder Quantity</label>
-              <input type="number" name="reorderQuantity" value={inputs.reorderQuantity} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Stock Location</label>
-              <select name="stockLocation" value={inputs.stockLocation} onChange={handleChange} required>
-                <option value="">Select Location</option>
-                {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Purchase Price</label>
-              <input type="number" name="purchasePrice" value={inputs.purchasePrice} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Selling Price</label>
-              <input type="number" name="sellingPrice" value={inputs.sellingPrice} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Supplier</label>
-              <input type="text" name="supplier" value={inputs.supplier} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Warranty Period</label>
-              <input type="text" name="warrantyPeriod" value={inputs.warrantyPeriod} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Power Rating</label>
-              <input type="text" name="powerRating" value={inputs.powerRating} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Manufacturer</label>
-              <input type="text" name="manufacturer" value={inputs.manufacturer} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Model Number</label>
-              <input type="text" name="modelNumber" value={inputs.modelNumber} onChange={handleChange} />
-            </div>
-
-            <div className="form-group">
-              <label>Status</label>
-              <select name="itemStatus" value={inputs.itemStatus} onChange={handleChange}>
-                {statusOptions.map(st => <option key={st} value={st}>{st}</option>)}
-              </select>
-            </div>
-
+          <form className="add-item-form" onSubmit={handleAddItem}>
+            {Object.keys(defaultInputs).map(field => (
+              <div className="form-group" key={field}>
+                <label>{field.replace(/([A-Z])/g, ' $1').trim()}</label>
+                {field === "category" ? (
+                  <select name={field} value={inputs[field]} onChange={handleChange} required>
+                    <option value="">Select Category</option>
+                    {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                  </select>
+                ) : field === "stockLocation" ? (
+                  <select name={field} value={inputs[field]} onChange={handleChange} required>
+                    <option value="">Select Location</option>
+                    {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
+                  </select>
+                ) : field === "itemStatus" ? (
+                  <select name={field} value={inputs[field]} onChange={handleChange}>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                ) : (
+                  <input
+                    type={field.includes('Price') || field.includes('Quantity') ? 'number' : 'text'}
+                    name={field}
+                    value={inputs[field]}
+                    onChange={handleChange}
+                    required={field === "stockQuantity" || field === "productName"}
+                    placeholder={field.replace(/([A-Z])/g, ' $1').trim()}
+                  />
+                )}
+              </div>
+            ))}
             <button type="submit">Add Item</button>
           </form>
         </div>
@@ -302,19 +252,22 @@ function InventoryManage() {
               type="checkbox"
               checked={selectedFields[key]}
               onChange={() => setSelectedFields(prev => ({ ...prev, [key]: !prev[key] }))}
-            /> {key}
+            />
+            {key.replace(/([A-Z])/g, ' $1').trim()}
           </label>
         ))}
         <button onClick={handleDownload}>Download Report</button>
       </div>
 
       {/* ------------------- ITEMS TABLE ------------------- */}
-      <div className="users-table-container">
-        <span className="table-user-count">Total Items: {items.length}</span>
-        <table className="users-table">
+      <div className="items-table-container">
+        <span className="table-item-count">Total Items: {items.length}</span>
+        <table className="items-table">
           <thead>
             <tr>
-              {Object.keys(defaultInputs).map((key) => (<th key={key}>{key}</th>))}
+              {Object.keys(defaultInputs).map((key) => (
+                <th key={key}>{key.replace(/([A-Z])/g, ' $1').trim()}</th>
+              ))}
               <th>Actions</th>
             </tr>
           </thead>
@@ -323,45 +276,66 @@ function InventoryManage() {
               <tr key={item._id}>
                 {editingItemId === item._id ? (
                   <td colSpan={Object.keys(defaultInputs).length + 1}>
-                    <div className="update-user-container">
-                      <h1>Update Item</h1>
-                      <form onSubmit={handleUpdateItem}>
-                        {Object.keys(editInputs).map(field => (
+                    <div className="add-item-container">
+                      <h3>Update Item</h3>
+                      <form className="add-item-form" onSubmit={handleUpdateItem}>
+                        {Object.keys(defaultInputs).filter(field => field !== 'itemStatus' && field !== '_id').map(field => (
                           <div className="form-group" key={field}>
+                            <label>{field.replace(/([A-Z])/g, ' $1').trim()}</label>
                             {field === "category" ? (
-                              <select name={field} value={editInputs[field]} onChange={handleEditChange} required>
+                              <select
+                                name={field}
+                                value={editInputs[field] || ''}
+                                onChange={handleEditChange}
+                                required
+                              >
                                 <option value="">Select Category</option>
-                                {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                                {categories.map(cat => (
+                                  <option key={cat} value={cat}>{cat}</option>
+                                ))}
                               </select>
                             ) : field === "stockLocation" ? (
-                              <select name={field} value={editInputs[field]} onChange={handleEditChange} required>
+                              <select
+                                name={field}
+                                value={editInputs[field] || ''}
+                                onChange={handleEditChange}
+                                required
+                              >
                                 <option value="">Select Location</option>
-                                {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
-                              </select>
-                            ) : field === "itemStatus" ? (
-                              <select name={field} value={editInputs[field]} onChange={handleEditChange}>
-                                {statusOptions.map(st => <option key={st} value={st}>{st}</option>)}
+                                {locations.map(loc => (
+                                  <option key={loc} value={loc}>{loc}</option>
+                                ))}
                               </select>
                             ) : (
                               <input
                                 type={field.includes('Price') || field.includes('Quantity') ? 'number' : 'text'}
                                 name={field}
-                                value={editInputs[field]}
+                                value={editInputs[field] || ''}
                                 onChange={handleEditChange}
                                 required={field === "stockQuantity" || field === "productName"}
-                                placeholder={field}
+                                placeholder={field.replace(/([A-Z])/g, ' $1').trim()}
                               />
                             )}
                           </div>
                         ))}
-                        <button type="submit">Update</button>
-                        <button type="button" className="delete-button" onClick={() => setEditingItemId(null)}>Cancel</button>
+                        <div className="form-group">
+                          <button type="submit">Update Item</button>
+                          <button
+                            type="button"
+                            className="delete-button"
+                            onClick={() => setEditingItemId(null)}
+                          >
+                            Cancel
+                          </button>
+                        </div>
                       </form>
                     </div>
                   </td>
                 ) : (
                   <>
-                    {Object.keys(defaultInputs).map(field => <td key={field}>{item[field]}</td>)}
+                    {Object.keys(defaultInputs).map(field => (
+                      <td key={field}>{item[field] || ''}</td>
+                    ))}
                     <td>
                       <button className="update-button" onClick={() => startEdit(item)}>Edit</button>
                       <button className="delete-button" onClick={() => handleDeleteItem(item._id)}>Delete</button>
