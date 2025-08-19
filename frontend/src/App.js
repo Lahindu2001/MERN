@@ -6,7 +6,8 @@ import './App.css';
 
 import Users from "./Components/Userdetails/Users";
 import AdminPanel from "./Components/AdminPanel/Admin";
-import InventoryMange from "./Components/InventoryMange/InventoryMange";
+import InventoryManage from "./Components/InventoryMange/InventoryMange";
+import ProductManager from "./Components/ProductManager/ProductManager";
 
 function App() {
   return (
@@ -24,7 +25,10 @@ function App() {
         <Route path="/userdetails" element={<Users />} /> {/* All CRUD handled here */}
 
         {/* Inventory Management */}
-        <Route path="/InventoryMange" element={<InventoryMange />} />
+        <Route path="/InventoryMange" element={<InventoryManage />} />
+
+        {/* Product Management */}
+        <Route path="/ProductManager" element={<ProductManager />} />
 
         {/* Catch-all Redirect */}
         <Route path="*" element={<Navigate to="/" replace />} />

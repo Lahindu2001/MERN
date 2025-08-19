@@ -26,8 +26,10 @@ function Admin() {
             </Link>
           </div>
           <div className="card">
-            <h2>Package Management</h2>
-            <p>Create and modify solar packages for customers.</p>
+           <Link to="/ProductManager" className="activehome">
+              <h2>Product Management</h2>
+              <p>Create and modify solar packages for customers.</p>
+            </Link>
           </div>
           <div className="card">
             <h2>Finance Management</h2>

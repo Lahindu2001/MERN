@@ -9,7 +9,7 @@ function Nav() {
         <li className="home-li">
           <NavLink
             to="/mainAdminhome"
-            className="home-a"
+            className={({ isActive }) => `home-a ${isActive ? 'active' : ''}`}
           >
             <h1>Admin Home</h1>
           </NavLink>
@@ -17,33 +17,27 @@ function Nav() {
         <li className="home-li">
           <NavLink
             to="/userdetails"
-            className="home-a"
-            activeClassName="active"
+            className={({ isActive }) => `home-a ${isActive ? 'active' : ''}`}
           >
             <h1>User Management</h1>
           </NavLink>
         </li>
-
         <li className="home-li">
           <NavLink
             to="/InventoryMange"
-            className="home-a"
-            activeClassName="active"
+            className={({ isActive }) => `home-a ${isActive ? 'active' : ''}`}
           >
             <h1>Inventory Management</h1>
           </NavLink>
         </li>
-
-        
-        {/* <li className="home-li">
+        <li className="home-li">
           <NavLink
-            to="/adduser"
-            className="home-a"
-            activeClassName="active"
+            to="/ProductManager"
+            className={({ isActive }) => `home-a ${isActive ? 'active' : ''}`}
           >
-            <h1>Add User</h1>
+            <h1>Product Management</h1>
           </NavLink>
-        </li> */}
+        </li>
       </ul>
     </div>
   );
