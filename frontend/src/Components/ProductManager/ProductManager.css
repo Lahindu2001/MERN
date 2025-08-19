@@ -4,12 +4,13 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Changed to flex-start to allow natural flow */
+  justify-content: flex-start;
   align-items: center;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
   margin: 0;
-  padding: 20px 0; /* Added padding to give space */
+  padding: 20px 0;
+  background-color: #f5f6fa;
 }
 
 /* ------------------- Title ------------------- */
@@ -27,21 +28,22 @@
 }
 
 .product-section .Title {
-  font-size: 28px; /* Increased size for prominence */
-  color: #2c3e50; /* Dark teal-blue for a modern look */
-  font-weight: 700; /* Bold font */
+  font-size: 28px;
+  color: #2c3e50;
+  font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   margin: 0;
   padding: 0;
 }
 
-/* ------------------- Add Product Form ------------------- */
-.add-product-container {
+/* ------------------- Add / Update Form Container ------------------- */
+.add-product-container,
+.update-user-container {
   padding: 25px;
   background-color: #ffffff;
   border-radius: 8px;
-  margin: 20px 0; /* Increased margin for better spacing */
+  margin: 20px 0;
   width: 100%;
   max-width: 600px;
   display: flex;
@@ -50,14 +52,15 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
   box-sizing: border-box;
-  position: relative; /* Ensure it stays in flow */
 }
 
-.add-product-container:hover {
+.add-product-container:hover,
+.update-user-container:hover {
   transform: translateY(-2px);
 }
 
-.add-product-container h3 {
+.add-product-container h3,
+.update-user-container h1 {
   margin-bottom: 20px;
   color: #333;
   font-size: 24px;
@@ -66,27 +69,33 @@
   letter-spacing: 0.5px;
 }
 
-.add-user-form {
+/* ------------------- Forms ------------------- */
+.add-user-form,
+.update-user-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 100%;
 }
 
-.add-user-form .form-group {
+.add-user-form .form-group,
+.update-user-form .form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.add-user-form label {
+.add-user-form label,
+.update-user-form label {
   font-size: 14px;
   font-weight: 500;
   color: #333;
 }
 
 .add-user-form input,
-.add-user-form select {
+.add-user-form select,
+.update-user-form input,
+.update-user-form select {
   padding: 12px 15px;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
@@ -99,19 +108,23 @@
 }
 
 .add-user-form input:focus,
-.add-user-form select:focus {
+.add-user-form select:focus,
+.update-user-form input:focus,
+.update-user-form select:focus {
   outline: none;
   border-color: #007bff;
   background-color: #ffffff;
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
 }
 
-.add-user-form input::placeholder {
+.add-user-form input::placeholder,
+.update-user-form input::placeholder {
   color: #999;
   font-style: italic;
 }
 
-.add-user-form button {
+.add-user-form button,
+.update-user-form button {
   padding: 12px;
   background-color: #007bff;
   color: white;
@@ -123,7 +136,8 @@
   transition: all 0.3s ease;
 }
 
-.add-user-form button:hover {
+.add-user-form button:hover,
+.update-user-form button:hover {
   background-color: #0056b3;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -154,7 +168,7 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
-/* ------------------- Download & Filter Options ------------------- */
+/* ------------------- Download Options ------------------- */
 .download-options {
   padding: 15px;
   background-color: #fff;
@@ -180,14 +194,6 @@
 
 .download-options input[type="checkbox"] {
   margin-right: 5px;
-}
-
-.download-options select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  margin: 0 10px;
 }
 
 .download-options button {
@@ -244,6 +250,7 @@
   border-bottom: 1px solid #e0e0e0;
   font-size: 14px;
   color: #333;
+  vertical-align: middle;
 }
 
 .users-table th {
@@ -255,10 +262,6 @@
 
 .users-table tr:hover {
   background-color: #f9f9f9;
-}
-
-.users-table td {
-  vertical-align: middle;
 }
 
 /* ------------------- Buttons ------------------- */
@@ -306,21 +309,6 @@
   display: block;
 }
 
-/* ------------------- Update Form ------------------- */
-.update-user-container {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 10px 0;
-}
-
-.update-user-container h1 {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 15px;
-}
-
 /* ------------------- Responsive Design ------------------- */
 @media (max-width: 600px) {
   .product-section {
@@ -332,9 +320,6 @@
   .product-section .Title {
     font-size: 20px;
   }
-  .search-bar {
-    padding: 0 10px;
-  }
   .search-bar input {
     font-size: 14px;
     max-width: 100%;
@@ -342,30 +327,30 @@
   .download-options {
     padding: 10px;
   }
-  .download-options label,
-  .download-options select,
-  .download-options button {
-    font-size: 12px;
-  }
   .update-button,
   .delete-button,
   .add-user-toggle {
     font-size: 12px;
     padding: 8px 15px;
   }
-  .add-product-container {
+  .add-product-container,
+  .update-user-container {
     padding: 15px;
     max-width: 100%;
   }
-  .add-product-container h3 {
+  .add-product-container h3,
+  .update-user-container h1 {
     font-size: 18px;
   }
   .add-user-form input,
-  .add-user-form select {
+  .add-user-form select,
+  .update-user-form input,
+  .update-user-form select {
     padding: 10px;
     font-size: 14px;
   }
-  .add-user-form button {
+  .add-user-form button,
+  .update-user-form button {
     padding: 10px;
     font-size: 14px;
   }
@@ -376,7 +361,6 @@
   .table-user-count {
     font-size: 14px;
     padding: 6px 10px;
-    margin: 0 auto 10px;
   }
   .users-table th,
   .users-table td {

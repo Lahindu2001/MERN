@@ -15,7 +15,6 @@ function ProductManager() {
 
   // ------------------- SELECTED FIELDS FOR PDF -------------------
   const [selectedFields, setSelectedFields] = useState({
-    product_id: true,
     product_name: true,
     price: true,
     description: true,
@@ -25,11 +24,10 @@ function ProductManager() {
 
   // ------------------- FORM INPUTS -------------------
   const defaultInputs = {
-    product_id: '',
     product_name: '',
     price: '',
     description: '',
-    photo: '',
+    photo: null,
     created_by: ''
   };
 
@@ -52,44 +50,69 @@ function ProductManager() {
   }, []);
 
   // ------------------- HANDLE INPUT CHANGE -------------------
-  const handleChange = e => setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  const handleEditChange = e => setEditInputs(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = e => {
+    if (e.target.name === 'photo') {
+      setInputs(prev => ({ ...prev, photo: e.target.files[0] }));
+    } else {
+      setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    }
+  };
+
+  const handleEditChange = e => {
+    if (e.target.name === 'photo') {
+      setEditInputs(prev => ({ ...prev, photo: e.target.files[0] }));
+    } else {
+      setEditInputs(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    }
+  };
 
   // ------------------- ADD PRODUCT -------------------
   const handleAddProduct = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post(URL, {
-        ...inputs,
-        product_id: Number(inputs.product_id),
-        price: Number(inputs.price),
-        created_by: Number(inputs.created_by)
+      const formData = new FormData();
+      Object.keys(inputs).forEach(key => {
+        if (inputs[key] !== null) formData.append(key, inputs[key]);
       });
+
+      const res = await axios.post(URL, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
       setProducts([...products, res.data.product]);
       setInputs(defaultInputs);
       setShowAddForm(false);
       alert('Product added successfully!');
     } catch (err) {
       console.error(err);
-      alert('Failed to add product! Check console for details.');
+      alert('Failed to add product!');
     }
   };
 
   // ------------------- EDIT PRODUCT -------------------
   const startEdit = product => {
     setEditingProductId(product._id);
-    setEditInputs({ ...product });
+    setEditInputs({
+      product_name: product.product_name,
+      price: product.price,
+      description: product.description,
+      photo: null,
+      created_by: product.created_by
+    });
   };
 
   const handleUpdateProduct = async e => {
     e.preventDefault();
     try {
-      const res = await axios.put(`${URL}/${editingProductId}`, {
-        ...editInputs,
-        product_id: Number(editInputs.product_id),
-        price: Number(editInputs.price),
-        created_by: Number(editInputs.created_by)
+      const formData = new FormData();
+      Object.keys(editInputs).forEach(key => {
+        if (editInputs[key] !== null) formData.append(key, editInputs[key]);
       });
+
+      const res = await axios.put(`${URL}/${editingProductId}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
       setProducts(products.map(p => (p._id === editingProductId ? res.data.product : p)));
       setEditingProductId(null);
       alert('Product updated successfully!');
@@ -131,7 +154,11 @@ function ProductManager() {
 
       Object.keys(selectedFields).forEach(key => {
         if (selectedFields[key]) {
-          doc.text(`${key} : ${product[key] || ''}`, 12, y);
+          if (key === 'photo') {
+            doc.text(`${key} : ${product[key] ? 'Uploaded' : ''}`, 12, y);
+          } else {
+            doc.text(`${key} : ${product[key] || ''}`, 12, y);
+          }
           y += 5;
         }
       });
@@ -166,10 +193,6 @@ function ProductManager() {
           <h3>Add New Product</h3>
           <form className="add-user-form" onSubmit={handleAddProduct}>
             <div className="form-group">
-              <label>Product ID</label>
-              <input type="number" name="product_id" value={inputs.product_id} onChange={handleChange} required />
-            </div>
-            <div className="form-group">
               <label>Product Name</label>
               <input type="text" name="product_name" value={inputs.product_name} onChange={handleChange} required />
             </div>
@@ -183,7 +206,7 @@ function ProductManager() {
             </div>
             <div className="form-group">
               <label>Photo</label>
-              <input type="text" name="photo" value={inputs.photo} onChange={handleChange} />
+              <input type="file" name="photo" onChange={handleChange} />
             </div>
             <div className="form-group">
               <label>Created By</label>
@@ -234,16 +257,20 @@ function ProductManager() {
                     <div className="update-user-container">
                       <h1>Update Product</h1>
                       <form onSubmit={handleUpdateProduct}>
-                        {Object.keys(editInputs).map(field => (
+                        {['product_name', 'price', 'description', 'photo', 'created_by'].map(field => (
                           <div className="form-group" key={field}>
-                            <input
-                              type={field.includes('price') || field.includes('product_id') || field.includes('created_by') ? 'number' : 'text'}
-                              name={field}
-                              value={editInputs[field]}
-                              onChange={handleEditChange}
-                              required={field === "product_name" || field === "price" || field === "product_id" || field === "created_by"}
-                              placeholder={field}
-                            />
+                            {field === 'photo' ? (
+                              <input type="file" name="photo" onChange={handleEditChange} />
+                            ) : (
+                              <input
+                                type={field === 'price' || field === 'created_by' ? 'number' : 'text'}
+                                name={field}
+                                value={editInputs[field]}
+                                onChange={handleEditChange}
+                                required={field === 'product_name' || field === 'price' || field === 'created_by'}
+                                placeholder={field}
+                              />
+                            )}
                           </div>
                         ))}
                         <button type="submit">Update</button>
@@ -253,7 +280,15 @@ function ProductManager() {
                   </td>
                 ) : (
                   <>
-                    {Object.keys(defaultInputs).map(field => <td key={field}>{product[field]}</td>)}
+                    {Object.keys(defaultInputs).map(field => (
+                      <td key={field}>
+                        {field === 'photo' && product[field] ? (
+                          <img src={`http://localhost:5000${product[field]}`} alt="product" width="60" />
+                        ) : (
+                          field !== 'photo' && product[field]
+                        )}
+                      </td>
+                    ))}
                     <td>
                       <button className="update-button" onClick={() => startEdit(product)}>Edit</button>
                       <button className="delete-button" onClick={() => handleDeleteProduct(product._id)}>Delete</button>

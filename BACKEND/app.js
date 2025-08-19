@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const userRouter = require("./Routes/UserRoutes");
 const inventoryRouter = require("./Routes/InventoryRoutes");
 const productRouter = require("./Routes/ProductRoutes");
+const path = require("path"); // <-- add this
 
 const app = express();
 const cors = require("cors");
@@ -10,6 +11,8 @@ const cors = require("cors");
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // <-- serve images
+
 app.use("/users", userRouter);
 app.use("/inventory", inventoryRouter);
 app.use("/products", productRouter);
