@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Nav from '../Nav/Nav';
+import Nav from '../Nav/Nav.js';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import './ProductManager.css';
