@@ -8,12 +8,6 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.11.0",
-<<<<<<< HEAD
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.7.1",
-    "react-scripts": "5.0.1",
-=======
     "chart.js": "^4.5.0",
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
@@ -22,16 +16,16 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.8.1",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "5.0.1",
     "react-to-print": "^3.1.1",
->>>>>>> abe881899816cf323f36526987a80e668046d2b3
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "vite"
   },
   "eslintConfig": {
     "extends": [
